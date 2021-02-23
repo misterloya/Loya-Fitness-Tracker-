@@ -1,6 +1,6 @@
 const db = require("../models")
 module.exports = function (app) {
-    app.get("/api/workout/", (req,res) =>{
+    app.get("/api/workouts/", (req,res) =>{
         db.Workout.aggregate([{
             $addFields: { 
                 "totalDuration" : {
@@ -16,7 +16,7 @@ module.exports = function (app) {
             }
         })
     })
-    app.post("/api/workout/", async (req,res) => {
+    app.post("/api/workouts/", async (req,res) => {
         db.Workout.create({}, (error,data) => {
             if (error) {
                 res.send(error);
@@ -25,7 +25,7 @@ module.exports = function (app) {
             }
         })
     })
-    app.put("/api/workout/:id", (req, res) => {
+    app.put("/api/workouts/:id", (req, res) => {
         db.Workout.findByIdAndUpdate(
             req.params.id, 
             { 
@@ -37,7 +37,7 @@ module.exports = function (app) {
                 else res.json(data);
             })
     });
-    app.get("/api/workout/range", (req,res) => {
+    app.get("/api/workouts/range", (req,res) => {
         db.Workout.aggregate([{
             $addFields: { 
                 "totalDuration" : {
